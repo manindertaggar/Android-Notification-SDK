@@ -12,6 +12,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.Person
 import androidx.core.content.ContextCompat
+import co.taggar.notifications.Constants
 import co.taggar.notifications.R
 import co.taggar.notifications.Tag
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -32,6 +33,11 @@ import java.net.URL
  */
 class NotificationService : FirebaseMessagingService() {
 
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        Log.d(Tag(), "Refreshed token: $token")
+    }
+
     /**
      * Called when a message is received from FCM.
      * @param remoteMessage The received message from FCM.
@@ -40,40 +46,47 @@ class NotificationService : FirebaseMessagingService() {
         Log.d(Tag(), "Message received from: ${remoteMessage.from}")
 
         // Validate message data
-        if (!remoteMessage.data.containsKey("type") || remoteMessage.data["type"] != "ANDP") {
+        if (!remoteMessage.data.containsKey(Constants.DATA_TYPE) || remoteMessage.data[Constants.DATA_TYPE] != Constants.NOTIFICATION_TYPE) {
             Log.d(Tag(), "Ignoring irrelevant notification")
             return
         }
 
-        val notificationId = remoteMessage.data["id"]?.toIntOrNull() ?: generateNotificationId()
-        val title = remoteMessage.data["title"]
-        val message = remoteMessage.data["message"]
-        val color = remoteMessage.data["color"]?.let { parseColor(it) } ?: defaultColor()
-        val deeplink = remoteMessage.data["deeplink"]
-        val template = remoteMessage.data["template"]
+        val notificationId =
+            remoteMessage.data[Constants.DATA_ID]?.toIntOrNull() ?: generateNotificationId()
+        val title = remoteMessage.data[Constants.DATA_TITLE]
+        val message = remoteMessage.data[Constants.DATA_MESSAGE]
+        val color =
+            remoteMessage.data[Constants.DATA_COLOR]?.let { parseColor(it) } ?: defaultColor()
+        val deeplink = remoteMessage.data[Constants.DATA_DEEPLINK]
+        val template = remoteMessage.data[Constants.DATA_TEMPLATE]
 
-        // Handle notification based on the template type
         when (template) {
-            "LARGE" -> remoteMessage.data["image"]?.let {
+            Constants.TEMPLATE_LARGE -> remoteMessage.data[Constants.DATA_IMAGE]?.let {
                 handleLargeImageNotification(notificationId, title, message, it, deeplink, color)
             }
 
-            "CONVERSATION" -> remoteMessage.data["conversation"]?.let {
+            Constants.TEMPLATE_CONVERSATION -> remoteMessage.data[Constants.DATA_CONVERSATION]?.let {
                 handleConversationNotification(notificationId, title, it, color)
             }
 
-            "BIG_TEXT" -> handleBigTextNotification(notificationId, title, message, deeplink, color)
+            Constants.TEMPLATE_BIG_TEXT -> handleBigTextNotification(
+                notificationId,
+                title,
+                message,
+                deeplink,
+                color
+            )
 
-            "INBOX" -> remoteMessage.data["lines"]?.let {
+            Constants.TEMPLATE_INBOX -> remoteMessage.data[Constants.DATA_LINES]?.let {
                 handleInboxStyleNotification(notificationId, title, message, it, color)
             }
 
             else -> sendDefaultNotification(notificationId, title, message, deeplink, color)
         }
 
-        // Handle any attached actions (buttons)
-        handleNotificationActions(notificationId, remoteMessage.data["buttons"])
+        handleNotificationActions(notificationId, remoteMessage.data[Constants.DATA_BUTTONS])
     }
+
 
     /**
      * Handles large image notifications using a coroutine to download the image asynchronously.
@@ -340,7 +353,7 @@ class NotificationService : FirebaseMessagingService() {
      * @return The default channel ID string.
      */
     private fun getChannelId(): String {
-        return "default_channel_id"
+        return Constants.CHANNEL_ID
     }
 
     /**
@@ -375,6 +388,7 @@ class NotificationService : FirebaseMessagingService() {
      * @param conversationJson The JSON string representing the conversation.
      * @return A list of `NotificationCompat.MessagingStyle.Message`.
      */
+
     private fun parseConversationMessages(conversationJson: String): List<NotificationCompat.MessagingStyle.Message> {
         val messages = mutableListOf<NotificationCompat.MessagingStyle.Message>()
 
@@ -383,14 +397,11 @@ class NotificationService : FirebaseMessagingService() {
 
             for (i in 0 until jsonArray.length()) {
                 val jsonObject = jsonArray.getJSONObject(i)
-                val text = jsonObject.getString("text")
-                val timestamp = jsonObject.getLong("timestamp")
-                val senderName = jsonObject.getString("sender")
+                val text = jsonObject.getString(Constants.JSON_TEXT)
+                val timestamp = jsonObject.getLong(Constants.JSON_TIMESTAMP)
+                val senderName = jsonObject.getString(Constants.JSON_SENDER)
 
-                // Create a Person object for the sender
                 val person = Person.Builder().setName(senderName).build()
-
-                // Create a Message object
                 val message = NotificationCompat.MessagingStyle.Message(text, timestamp, person)
                 messages.add(message)
             }

@@ -20,6 +20,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "bom" }
+notifications = { module = "app:notifications" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
