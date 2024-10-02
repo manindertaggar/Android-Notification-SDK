@@ -20,6 +20,5 @@ internal object Constants {
     const val JSON_TEXT = "text"
     const val JSON_TIMESTAMP = "timestamp"
     const val JSON_SENDER = "sender"
-    const val ME = "Me"
     const val CHANNEL_ID = "default_channel_id"
 }
