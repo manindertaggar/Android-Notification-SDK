@@ -1,16 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.googleServices)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "co.taggar.example"
+    namespace = "co.taggar.test"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "co.taggar.example"
+        applicationId = "co.taggar.test"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -58,5 +58,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.notifications)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(project(":app:notifications"))
 }
