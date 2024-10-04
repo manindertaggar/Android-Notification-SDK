@@ -8,6 +8,7 @@ composeBom = "2024.09.03"
 bom = "33.4.0"
 firebaseCommonKtx = "21.0.0"
 googleServices = "4.4.2"
+firebaseMessagingKtx = "24.0.2"
 
 [libraries]
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
@@ -22,6 +23,7 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx" }
 firebase-common-ktx = { group = "com.google.firebase", name = "firebase-common-ktx", version.ref = "firebaseCommonKtx" }
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "bom" }
+google-firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

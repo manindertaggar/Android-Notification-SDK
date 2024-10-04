@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="co.taggar.test" />
+                  <option name="mobileSdkAppId" value="1:410670112660:android:9ff327ef5c7f0d2b45b981" />
+                  <option name="projectId" value="pdfreader-b952e" />
+                  <option name="projectNumber" value="410670112660" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "co.taggar.test"
+    namespace = "co.taggar.example"
     compileSdk = 34
 
     defaultConfig {
@@ -60,4 +60,5 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(project(":app:notifications"))
+    implementation(libs.google.firebase.messaging.ktx)
 }
