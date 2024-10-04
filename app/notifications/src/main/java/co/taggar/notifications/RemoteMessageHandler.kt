@@ -110,9 +110,17 @@ class RemoteMessageHandler(private val context: Context) {
         Log.d(Tag(), "Downloading image from URL: $url")
         return@withContext try {
             val connection = URL(url).openConnection() as HttpURLConnection
+            connection.instanceFollowRedirects = true  // Allow redirects
             connection.doInput = true
             connection.connect()
-            BitmapFactory.decodeStream(connection.inputStream)
+
+            if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                val inputStream = connection.inputStream
+                BitmapFactory.decodeStream(inputStream)
+            } else {
+                Log.e(Tag(), "Failed to download image: Server returned ${connection.responseCode}")
+                null
+            }
         } catch (e: IOException) {
             Log.e(Tag(), "Failed to download image: $e")
             null
