@@ -1,0 +1,4 @@
+R_DEF: Internal format may change without notice
+local
+color default_notification_color
+drawable ic_notification

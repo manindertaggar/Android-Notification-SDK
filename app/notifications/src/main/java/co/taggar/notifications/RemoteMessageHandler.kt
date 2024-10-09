@@ -41,6 +41,8 @@ class RemoteMessageHandler(private val context: Context) {
             remoteMessage.data[Constants.DATA_ID]?.toIntOrNull() ?: generateNotificationId()
         val title = remoteMessage.data[Constants.DATA_TITLE]
         val message = remoteMessage.data[Constants.DATA_MESSAGE]
+
+        val buttons = remoteMessage.data[Constants.DATA_BUTTONS]
         val color =
             remoteMessage.data[Constants.DATA_COLOR]?.let { parseColor(it) } ?: defaultColor()
         val deeplink = remoteMessage.data[Constants.DATA_DEEPLINK]
@@ -48,11 +50,19 @@ class RemoteMessageHandler(private val context: Context) {
 
         when (template) {
             Constants.TEMPLATE_LARGE -> remoteMessage.data[Constants.DATA_IMAGE]?.let {
-                handleLargeImageNotification(notificationId, title, message, it, deeplink, color)
+                handleLargeImageNotification(
+                    notificationId,
+                    title,
+                    message,
+                    it,
+                    deeplink,
+                    color,
+                    buttons
+                )
             }
 
             Constants.TEMPLATE_CONVERSATION -> remoteMessage.data[Constants.DATA_CONVERSATION]?.let {
-                handleConversationNotification(notificationId, title, it, color)
+                handleConversationNotification(notificationId, title, it, color, buttons)
             }
 
             Constants.TEMPLATE_BIG_TEXT -> handleBigTextNotification(
@@ -60,17 +70,23 @@ class RemoteMessageHandler(private val context: Context) {
                 title,
                 message,
                 deeplink,
-                color
+                color,
+                buttons
             )
 
             Constants.TEMPLATE_INBOX -> remoteMessage.data[Constants.DATA_LINES]?.let {
-                handleInboxStyleNotification(notificationId, title, message, it, color)
+                handleInboxStyleNotification(notificationId, title, message, it, color, buttons)
             }
 
-            else -> sendDefaultNotification(notificationId, title, message, deeplink, color)
+            else -> sendDefaultNotification(
+                notificationId,
+                title,
+                message,
+                deeplink,
+                color,
+                buttons
+            )
         }
-
-        handleNotificationActions(notificationId, remoteMessage.data[Constants.DATA_BUTTONS])
 
     }
 
@@ -90,13 +106,22 @@ class RemoteMessageHandler(private val context: Context) {
         message: String?,
         imageUrl: String,
         deeplink: String?,
-        color: Int
+        color: Int,
+        buttons: String?
     ) {
         Log.d(Tag(), "Handling large image notification")
         CoroutineScope(Dispatchers.IO).launch {
             val bitmap = downloadImage(imageUrl)
             bitmap?.let {
-                sendLargeImageNotification(notificationId, title, message, it, deeplink, color)
+                sendLargeImageNotification(
+                    notificationId,
+                    title,
+                    message,
+                    it,
+                    deeplink,
+                    color,
+                    buttons
+                )
             }
         }
     }
@@ -142,11 +167,12 @@ class RemoteMessageHandler(private val context: Context) {
         message: String?,
         bitmap: Bitmap,
         deeplink: String?,
-        color: Int
+        color: Int,
+        buttons: String?
     ) {
         Log.d(Tag(), "Sending large image notification")
         val notificationBuilder =
-            createBaseNotificationBuilder(title, message, deeplink, color)
+            createBaseNotificationBuilder(title, message, deeplink, color, buttons)
                 .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
 
         notify(notificationId, notificationBuilder)
@@ -163,7 +189,8 @@ class RemoteMessageHandler(private val context: Context) {
         notificationId: Int,
         title: String?,
         conversationJson: String,
-        color: Int
+        color: Int,
+        buttons: String?
     ) {
         Log.d(Tag(), "Handling conversation notification")
         val messagingStyle = NotificationCompat.MessagingStyle("Me")
@@ -172,7 +199,7 @@ class RemoteMessageHandler(private val context: Context) {
         messages.forEach { messagingStyle.addMessage(it) }
 
         val notificationBuilder =
-            createBaseNotificationBuilder(title, null, null, color)
+            createBaseNotificationBuilder(title, null, null, color, buttons)
                 .setStyle(messagingStyle)
 
         notify(notificationId, notificationBuilder)
@@ -191,11 +218,12 @@ class RemoteMessageHandler(private val context: Context) {
         title: String?,
         message: String?,
         deeplink: String?,
-        color: Int
+        color: Int,
+        buttons: String?
     ) {
         Log.d(Tag(), "Handling big text notification")
         val notificationBuilder =
-            createBaseNotificationBuilder(title, message, deeplink, color)
+            createBaseNotificationBuilder(title, message, deeplink, color, buttons)
                 .setStyle(NotificationCompat.BigTextStyle().bigText(message))
 
         notify(notificationId, notificationBuilder)
@@ -214,14 +242,15 @@ class RemoteMessageHandler(private val context: Context) {
         title: String?,
         message: String?,
         linesJson: String,
-        color: Int
+        color: Int,
+        buttons: String?
     ) {
         Log.d(Tag(), "Handling inbox style notification")
         val inboxStyle = NotificationCompat.InboxStyle()
         parseInboxLines(linesJson).forEach { inboxStyle.addLine(it) }
 
         val notificationBuilder =
-            createBaseNotificationBuilder(title, message, null, color)
+            createBaseNotificationBuilder(title, message, null, color, buttons)
                 .setStyle(inboxStyle)
 
         notify(notificationId, notificationBuilder)
@@ -240,36 +269,16 @@ class RemoteMessageHandler(private val context: Context) {
         title: String?,
         message: String?,
         deeplink: String?,
-        color: Int
+        color: Int,
+        buttons: String?
     ) {
         Log.d(Tag(), "Sending default notification")
         val notificationBuilder =
-            createBaseNotificationBuilder(title, message, deeplink, color)
+            createBaseNotificationBuilder(title, message, deeplink, color, buttons)
         notify(notificationId, notificationBuilder)
     }
 
-    /**
-     * Adds actions (buttons) to the notification if they are provided.
-     * @param notificationId ID of the notification.
-     * @param buttonsJson JSON string representing the buttons and their actions.
-     */
-    private fun handleNotificationActions(notificationId: Int, buttonsJson: String?) {
-        Log.d(Tag(), "Handling notification actions")
-        buttonsJson?.let {
-            val buttons = parseNotificationButtons(it)
-            val notificationBuilder =
-                createBaseNotificationBuilder(null, null, null, defaultColor())
-
-            buttons.forEach { (text, deeplink) ->
-                notificationBuilder.addAction(0, text, getDeeplinkIntent(deeplink))
-            }
-
-            notify(notificationId, notificationBuilder)
-        }
-    }
-
     // Other helper methods, such as `parseConversationMessages`, `parseInboxLines`, and `parseNotificationButtons` go here...
-
     /**
      * Parses a color string into an integer value.
      * @param colorHex The hex color string.
@@ -303,7 +312,8 @@ class RemoteMessageHandler(private val context: Context) {
         title: String?,
         message: String?,
         deeplink: String?,
-        color: Int
+        color: Int,
+        buttons: String?
     ): NotificationCompat.Builder {
         Log.d(Tag(), "Creating base notification builder")
         val channelId = getChannelId()
@@ -322,6 +332,11 @@ class RemoteMessageHandler(private val context: Context) {
             builder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
         }
 
+        buttons?.let {
+            parseNotificationButtons(it).forEach { (text, deeplink) ->
+                builder.addAction(0, text, getDeeplinkIntent(deeplink))
+            }
+        }
         return builder
     }
 

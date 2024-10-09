@@ -1,0 +1,3 @@
+co.taggar.notifications
+color default_notification_color
+drawable ic_notification

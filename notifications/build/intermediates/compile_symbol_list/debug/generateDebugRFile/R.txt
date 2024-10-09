@@ -1,0 +1,2 @@
+int color default_notification_color 0x0
+int drawable ic_notification 0x0

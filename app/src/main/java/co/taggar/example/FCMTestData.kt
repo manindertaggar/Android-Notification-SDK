@@ -10,13 +10,12 @@ object FCMTestData {
         putString("type", "ANDP")
         putString("id", "101")
         putString("title", "Test Notification")
-        "?"
         putString("message", "This is a test message from Android code.\nand its big text\nreally")
         putString("color", "#FF5733")
         putString("deeplink", "https://example.com")
         putString("template", "INBOX")
         putString("lines", "[\"line 1\",\"line 2\",\"line 3\",\"line 4\"]")
-//        putString("image", "https://picsum.photos/200/300")
+        putString("image", "https://picsum.photos/200/300")
 //        putString("conversation", "[\n" +
 //                "  {\n" +
 //                "    \"text\": \"Hey, how's it going?\",\n" +
@@ -39,10 +38,10 @@ object FCMTestData {
 //                "    \"sender\": \"Bob\"\n" +
 //                "  }\n" +
 //                "]")
-//        putString(
-//            "buttons",
-//            "[{\"text\": \"Open App\", \"deeplink\": \"app://open\"}, {\"text\": \"Dismiss\", \"deeplink\": \"app://dismiss\"}]"
-//        )
+        putString(
+            "buttons",
+            "[{\"text\": \"Open App\", \"deeplink\": \"app://open\"}, {\"text\": \"Email\", \"deeplink\": \"mailto:ahdev2020@outlook.com\"}]"
+        )
     }
 
     val remoteMessage = createRemoteMessage(bundle)

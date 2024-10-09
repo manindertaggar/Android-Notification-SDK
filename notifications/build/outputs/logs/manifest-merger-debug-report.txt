@@ -1,0 +1,38 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:2:1-16:12
+INJECTED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:2:1-16:12
+	package
+		INJECTED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:4:5-77
+	android:name
+		ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:4:22-74
+uses-permission#android.permission.INTERNET
+ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:5:5-67
+	android:name
+		ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:5:22-64
+application
+ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:7:5-15:19
+service#co.taggar.notifications.NotificationService
+ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:8:9-14:19
+	android:exported
+		ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:10:13-37
+	android:name
+		ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:9:13-48
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:11:13-13:29
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:12:17-78
+	android:name
+		ADDED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml:12:25-75
+uses-sdk
+INJECTED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml
+INJECTED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/maninder/AndroidStudioProjects/NotificationSDKSample/app/notifications/src/main/AndroidManifest.xml
