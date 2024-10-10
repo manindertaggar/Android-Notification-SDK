@@ -27,7 +27,7 @@ Please follow Firebase's guidelines for delivering the notifications, e.g., usin
 https://firebase.google.com/docs/cloud-messaging/server
 
 Please make sure for the payload, you do not send the notification, please send all the required fields in the data object.
-As per the official documentation, all of the subfields send in the data must be stringified as the data object is only available as `Map<String, String>`
+As per the official documentation, all of the subfields sent in the data must be stringified as the data object is only available as `Map<String, String>`
 
 
 
@@ -42,26 +42,26 @@ As per the official documentation, all of the subfields send in the data must be
 ```
 
 
-#### Supported TEmplates
+#### Supported Templates
 
-| Template Type   | Data Json                                            | Screenshot                               |
-|------------------|--------------------------------------------------------|------------------------------------------|
-| Normal           | ```{ "title": "Test Notification", "body": "This is a normal notification.", ...} ``` | <img src="https://github.com/user-attachments/assets/886e798f-0f75-4604-b297-a611e76e3d2f" alt="Normal Screenshot" width="800"/> |
-| Big Text         | ``` ``` | <img src="path/to/big_text_screenshot.png" alt="Big Text Screenshot" width="200"/> |
-| Conversation      | ``` ``` | <img src="path/to/conversation_screenshot.png" alt="Conversation Screenshot" width="200"/> |
-| Large            | ```  ``` | <img src="path/to/large_screenshot.png" alt="Large Screenshot" width="200"/> |
-| | ```  ``` | <img src="path/to/large_screenshot.png" alt="Large Screenshot" width="200"/> |
+| Template Type | Data Json | Screenshot |
+|---------------|----------|----------- |
+| DEFAULT           | ```{ "type": "DEFAULT", "title": "Test Notification", "message": "This is a test message from Android code. and its big text is not supported and will be trimmed"} ``` | <img src="https://github.com/user-attachments/assets/886e798f-0f75-4604-b297-a611e76e3d2f" alt="Default Screenshot" width="800"/> |
+| BIG_TEXT      | ```"{type": "BIG_TEXT", "title": "Test Notification", "message": "This is a test message from Android code. and the long text should be supported here."``` | <img src="https://github.com/user-attachments/assets/7eb0dd33-86b1-4b21-8ddf-4059c3f8b065" alt="BigText Screenshot" width="800"/> |
+| LARGE         | ```{"type": "LARGE", "title": "Test Notification", "message": "This is a test message from Android code.", "image", "https://picsum.photos/200/300"}``` | <img src="https://github.com/user-attachments/assets/bb15bb9a-8d79-42ea-96f9-d9fa1173f9b7" alt="Large Screenshot" width="800"/> |
+| INBOX         | ```{"type": "INBOX", "title": "Test Notification",   "message": "This is a test message from Android code.", "lines":  "[\"line 1\",\"line 2\",\"line 3\",\"line 4\"]", "summery_text":"Emails" }``` | Expanded: <img src="https://github.com/user-attachments/assets/22ef99a8-f1f3-4677-89c8-931c1989e669" alt="Inbox Screenshot Expanded" width="800"/> Collapsed: <img src="https://github.com/user-attachments/assets/9aa65f92-6ff0-404e-8d62-f3835da290c7" alt="Inbox Screenshot Collapsed" width="800"/> |
+| CONVERSATION         | ```{"type": "CONVERSATION", "title": "Test Notification", "conversation": "[{\"text\": \"Hey, how's it going?\", \"timestamp\": 1634567890123, \"sender\": \"Alice\"}, {\"text\": \"I'm good, thanks! What about you?\", \"timestamp\": 1634567890456, \"sender\": \"Bob\"}]"}``` | <img src="https://github.com/user-attachments/assets/23704702-bf35-412c-8680-1c311329d158" alt="Large Screenshot" width="800"/> |
 
-To add buttons to any of the above types
+
 
 
 ## Features:
-- Support for all default notification styles: big text, big picture, inbox, and more.
+- Support all default notification styles: big text, big picture, inbox, and more.
 - Server-configurable settings: title, body, images, small icon, deep links, and more.
 - [Upcoming] Remove notifications remotely
 
 ## Why Use This SDK?
-Currently, Android developers must manually write code for notification rendering and establish custom backend contracts. **Android Notifications SDK** provides a standardized approach that simplifies this process, helping developers save time, minimize errors, and streamline notification handling.
+Android developers must manually write code for notification rendering and establish custom backend contracts. **Android Notifications SDK** provides a standardized approach that simplifies this process, helping developers save time, minimize errors, and streamline notification handling.
 
 ## Contributing:
 Contributions are welcome! If you'd like to submit pull requests, report issues, or suggest features, feel free to contribute on GitHub.
