@@ -16,6 +16,7 @@ internal object Constants {
     const val DATA_IMAGE = "image"
     const val DATA_CONVERSATION = "conversation"
     const val DATA_LINES = "lines"
+    const val SUMMERY_TEXT = "summery_text"
     const val DATA_BUTTONS = "buttons"
     const val JSON_TEXT = "text"
     const val JSON_TIMESTAMP = "timestamp"

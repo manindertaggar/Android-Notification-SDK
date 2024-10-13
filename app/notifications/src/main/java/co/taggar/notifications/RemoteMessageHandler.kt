@@ -17,6 +17,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.Person
 import androidx.core.content.ContextCompat
 import co.taggar.notifications.Constants.CHANNEL_NAME
+import co.taggar.notifications.Constants.SUMMERY_TEXT
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -75,7 +76,15 @@ class RemoteMessageHandler(private val context: Context) {
             )
 
             Constants.TEMPLATE_INBOX -> remoteMessage.data[Constants.DATA_LINES]?.let {
-                handleInboxStyleNotification(notificationId, title, message, it, color, buttons)
+                handleInboxStyleNotification(
+                    notificationId,
+                    title,
+                    message,
+                    it,
+                    color,
+                    buttons,
+                    remoteMessage.data[SUMMERY_TEXT]
+                )
             }
 
             else -> sendDefaultNotification(
@@ -243,11 +252,13 @@ class RemoteMessageHandler(private val context: Context) {
         message: String?,
         linesJson: String,
         color: Int,
-        buttons: String?
+        buttons: String?,
+        summeryText: String?
     ) {
         Log.d(Tag(), "Handling inbox style notification")
         val inboxStyle = NotificationCompat.InboxStyle()
         parseInboxLines(linesJson).forEach { inboxStyle.addLine(it) }
+        inboxStyle.setSummaryText(summeryText)
 
         val notificationBuilder =
             createBaseNotificationBuilder(title, message, null, color, buttons)
