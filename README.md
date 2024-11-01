@@ -1,10 +1,10 @@
 ### [WORK IN PROGRESS]
 
-## Automatically Render the Notifications on android from backend
+## Automatically Render the Notifications on Android from the backend
 
 # Auto Notifications SDK for Android
 
-**Auto Notifications SDK** simplifies the process of rendering notifications in Android apps, removing the need to write repetitive boilerplate code. This SDK supports default Android notification styles and allows for dynamic, server-configured notifications, enabling easier customization and management.
+**Auto Notifications SDK** simplifies rendering notifications in Android apps, removing the need to write repetitive boilerplate code. This SDK supports default Android notification styles and allows for dynamic, server-configured notifications, enabling easier customization and management.
 
 
 ## Getting Started
@@ -35,7 +35,7 @@ As per the official documentation, all of the subfields sent in the data must be
 {
   "notification":null,
   "data":{
-      "type" : "ANDP" 
+      "type": "ANDP" 
       "title": "Test Notification",
       "body": "This is a normal notification."
   }
@@ -43,11 +43,11 @@ As per the official documentation, all of the subfields sent in the data must be
 ```
 
 #### Note: 
-The SDK will only process the notifications with `type` = `ANDP`, it will ignore any other type of notifications. The other notifications can be accessed by extending a Service to the `AutoNotificationService` and can have custom implemenations just like FirebaseNotificationService.
+The SDK will only process notifications with `type` = `ANDP` and ignore any other type of notification. The other notifications can be accessed by extending a Service to the `AutoNotificationService` and can have custom implementations just like FirebaseNotificationService.
 
 
 ### What to send from Backend:
-`AutoNotificationService` has ability to render almost all types of android notifications out of the box. Please modify one of the following template objects as per your needs.
+`AutoNotificationService` can render almost all types of Android notifications out of the box. Please modify one of the following template objects to fit your needs.
 
 
 #### Supported Templates
@@ -57,9 +57,9 @@ The SDK will only process the notifications with `type` = `ANDP`, it will ignore
 | DEFAULT          | ```{ "type": "DEFAULT", "title": "Test Notification", "message": "This is a test message from Android code. and its big text is not supported and will be trimmed"} ``` | <img src="https://github.com/user-attachments/assets/886e798f-0f75-4604-b297-a611e76e3d2f" alt="Default Screenshot" width="800"/> |
 | BIG_TEXT - Use by default for all long text notifications     | ```"{type": "BIG_TEXT", "title": "Test Notification", "message": "This is a test message from Android code. and the long text should be supported here."``` | <img src="https://github.com/user-attachments/assets/7eb0dd33-86b1-4b21-8ddf-4059c3f8b065" alt="BigText Screenshot" width="800"/> |
 | LARGE - Can render expandable image       | ```{"type": "LARGE", "title": "Test Notification", "message": "This is a test message from Android code.", "image", "https://picsum.photos/200/300"}``` | <img src="https://github.com/user-attachments/assets/bb15bb9a-8d79-42ea-96f9-d9fa1173f9b7" alt="Large Screenshot" width="800"/> |
-| INBOX - Requires addional `lines` key as stringified array of strings        | ```{"type": "INBOX", "title": "Test Notification",   "message": "This is a test message from Android code.", "lines":  "[\"line 1\",\"line 2\",\"line 3\",\"line 4\"]", "summery_text":"Emails" }``` | Expanded: <img src="https://github.com/user-attachments/assets/22ef99a8-f1f3-4677-89c8-931c1989e669" alt="Inbox Screenshot Expanded" width="800"/> Collapsed: <img src="https://github.com/user-attachments/assets/9aa65f92-6ff0-404e-8d62-f3835da290c7" alt="Inbox Screenshot Collapsed" width="800"/> |
+| INBOX - Requires additional `lines` key as a stringified array of strings        | ```{"type": "INBOX", "title": "Test Notification",   "message": "This is a test message from Android code.", "lines":  "[\"line 1\",\"line 2\",\"line 3\",\"line 4\"]", "summery_text":"Emails" }``` | Expanded: <img src="https://github.com/user-attachments/assets/22ef99a8-f1f3-4677-89c8-931c1989e669" alt="Inbox Screenshot Expanded" width="800"/> Collapsed: <img src="https://github.com/user-attachments/assets/9aa65f92-6ff0-404e-8d62-f3835da290c7" alt="Inbox Screenshot Collapsed" width="800"/> |
 | CONVERSATION - Pass additional `conversation` key as stringified json       | ```{"type": "CONVERSATION", "title": "Test Notification", "conversation": "[{\"text\": \"Hey, how's it going?\", \"timestamp\": 1634567890123, \"sender\": \"Alice\"}, {\"text\": \"I'm good, thanks! What about you?\", \"timestamp\": 1634567890456, \"sender\": \"Bob\"}]"}``` | <img src="https://github.com/user-attachments/assets/23704702-bf35-412c-8680-1c311329d158" alt="Large Screenshot" width="800"/> |
-| Buttons - Pass additional `buttons` key to render the buttons and actions       | ```{ ..., "buttons": "[{\"text\": \"Open App\", \"deeplink\": \"app://open\"}, {\"text\": \"Email\", \"deeplink\": \"mailto:ahdev2020@outlook.com\"}]"``` | <img src="https://github.com/user-attachments/assets/305973c6-34df-4032-ae36-2a53dc9a1195" alt="Large Screenshot" width="800"/> |
+| Buttons - Pass additional `buttons` key to any of above templates      | ```{ ..., "buttons": "[{\"text\": \"Open App\", \"deeplink\": \"app://open\"}, {\"text\": \"Email\", \"deeplink\": \"mailto:ahdev2020@outlook.com\"}]"``` | <img src="https://github.com/user-attachments/assets/305973c6-34df-4032-ae36-2a53dc9a1195" alt="Large Screenshot" width="800"/> |
 
 
 
@@ -76,4 +76,4 @@ Contributions are welcome! If you'd like to submit pull requests, report issues,
 
 ---
 
-**Android Notifications SDK** aims to make notification management easy, efficient, and scalable for all Android developers.
+**Auto Notifications SDK** aims to make notification management easy, efficient, and scalable for all Android developers.
