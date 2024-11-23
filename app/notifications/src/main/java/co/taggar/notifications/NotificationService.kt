@@ -14,7 +14,7 @@ class NotificationService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
-        Log.d(Tag(), "Refreshed token: $token")
+        Log.d(tag(), "Refreshed token: $token")
     }
 
     /**
@@ -22,7 +22,12 @@ class NotificationService : FirebaseMessagingService() {
      * @param remoteMessage The received message from FCM.
      */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d(Tag(), "Message received from: ${remoteMessage.from}")
-        messageHandler.handleMessage(remoteMessage)
+        Log.d(tag(), "Message received from: ${remoteMessage.from}")
+
+        remoteMessage.toNotification()?.let { notification ->
+            messageHandler.handleMessage(notification)
+        }?.run {
+            Log.w(tag(), "Couldn't obtain instance of notification object")
+        }
     }
 }

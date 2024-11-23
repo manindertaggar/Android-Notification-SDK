@@ -1,7 +1,7 @@
 package co.taggar.notifications
 
 internal object Constants {
-    const val NOTIFICATION_TYPE = "ANDP"
+    const val REQUIRED_TYPE_CHECK = "ANDP"
     const val TEMPLATE_LARGE = "LARGE"
     const val TEMPLATE_CONVERSATION = "CONVERSATION"
     const val TEMPLATE_BIG_TEXT = "BIG_TEXT"
@@ -17,6 +17,7 @@ internal object Constants {
     const val DATA_CONVERSATION = "conversation"
     const val DATA_LINES = "lines"
     const val SUMMERY_TEXT = "summery_text"
+    const val BIG_CONTENT_TITLE = "big_content_title"
     const val DATA_BUTTONS = "buttons"
     const val JSON_TEXT = "text"
     const val JSON_TIMESTAMP = "timestamp"

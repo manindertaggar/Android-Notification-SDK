@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 
 
-fun Any.Tag() = this.javaClass.simpleName.toString()
+fun Any.tag() = this.javaClass.simpleName.toString()
 
 
 fun Context.getRestartPendingIntent(): PendingIntent {
@@ -20,4 +20,13 @@ fun Context.getRestartPendingIntent(): PendingIntent {
         PendingIntent.FLAG_IMMUTABLE,
     )
     return pendingIntent
+}
+
+
+/**
+ * Generates a unique notification ID based on the current system time.
+ * @return A unique notification ID.
+ */
+fun generateNotificationId(): Int {
+    return (System.currentTimeMillis() and 0xFFFFFFF).toInt()
 }

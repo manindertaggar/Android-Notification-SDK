@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import co.taggar.example.ui.theme.NotificationSDKSampleTheme
 import co.taggar.notifications.RemoteMessageHandler
-import co.taggar.notifications.Tag
+import co.taggar.notifications.tag
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun test() {
-        Log.d(Tag(), "Test method called")
+        Log.d(tag(), "Test method called")
         getFCMToken()
         messageHandler.handleMessage(FCMTestData.remoteMessage)
     }
@@ -47,10 +47,10 @@ class MainActivity : ComponentActivity() {
     private fun getFCMToken() {
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
-                Log.w(Tag(), "Fetching FCM registration token failed", task.exception)
+                Log.w(tag(), "Fetching FCM registration token failed", task.exception)
                 return@OnCompleteListener
             }
-            Log.d(Tag(), "FCM Token: " + task.result)
+            Log.d(tag(), "FCM Token: " + task.result)
         })
     }
 }
