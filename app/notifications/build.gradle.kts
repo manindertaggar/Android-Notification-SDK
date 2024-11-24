@@ -2,7 +2,11 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.mavenPublish)
 }
+
+group = "co.taggar"
+version = "1.0.1"
 
 android {
     namespace = "co.taggar.notifications"
@@ -39,4 +43,17 @@ dependencies {
     implementation(libs.firebase.common.ktx)
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "co.taggar"
+                artifactId = "notifications"
+                version = "1.0.1"
+            }
+        }
+    }
 }
