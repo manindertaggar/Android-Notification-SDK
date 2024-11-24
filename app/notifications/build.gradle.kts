@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "co.taggar"
-version = "1.0.1"
+version = "1.0.2"
 
 android {
     namespace = "co.taggar.notifications"
@@ -52,7 +52,7 @@ afterEvaluate {
                 from(components["release"])
                 groupId = "co.taggar"
                 artifactId = "notifications"
-                version = "1.0.1"
+                version = "1.0.2"
             }
         }
     }
