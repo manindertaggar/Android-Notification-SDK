@@ -1,0 +1,22 @@
+{
+  "project_info": {
+    "project_number": "410670112660",
+    "project_id": "pdfreader-b952e"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410670112660:android:9ff327ef5c7f0d2b45b981",
+        "android_client_info": {
+          "package_name": "co.taggar.test"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHX7Wmf7s5kP6h40liB6LEhulAInu2ai0"
+        }
+      ]
+    }
+  ],
+  "configuration_version": "1"
+}
