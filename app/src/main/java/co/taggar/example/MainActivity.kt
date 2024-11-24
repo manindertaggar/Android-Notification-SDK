@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
     private fun test() {
         Log.d(tag(), "Test method called")
         getFCMToken()
-        messageHandler.handleMessage(FCMTestData.remoteMessage)
+        messageHandler.handleMessage(FCMTestData.conversationNotification)
     }
 
     private fun getFCMToken() {

@@ -1,6 +1,6 @@
 package co.taggar.notifications.models
 
 data class NotificationButton(
-    val title: String,
+    val text: String,
     val deeplink: String
 )

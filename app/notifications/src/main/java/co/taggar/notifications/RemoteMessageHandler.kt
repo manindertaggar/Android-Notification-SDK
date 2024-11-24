@@ -14,6 +14,7 @@ import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.Person
 import co.taggar.notifications.Constants.CHANNEL_NAME
 import co.taggar.notifications.models.NotificationButton
 import co.taggar.notifications.models.styles.BigTextNotification
@@ -98,15 +99,14 @@ class RemoteMessageHandler(private val context: Context) {
         notification.apply {
             Log.d(tag(), "Handling conversation notification")
             val messagingStyle =
-                NotificationCompat.MessagingStyle()
-
+                NotificationCompat.MessagingStyle(Person.Builder().setName("me").build())
             conversation.forEach { messagingStyle.addMessage(it) }
 
             val notificationBuilder =
                 createBaseNotificationBuilder(title, null, deeplink, color, buttons)
                     .setStyle(messagingStyle)
 
-            notify(notificationId, notificationBuilder)
+            notify(generateNotificationId(), notificationBuilder)
         }
     }
 

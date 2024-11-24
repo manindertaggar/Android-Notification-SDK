@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "co.taggar.example"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "co.taggar.test"
