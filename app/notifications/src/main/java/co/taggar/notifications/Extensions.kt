@@ -8,7 +8,7 @@ import android.content.Intent
 fun Any.tag() = this.javaClass.simpleName.toString()
 
 
-fun Context.getRestartPendingIntent(): PendingIntent {
+ fun Context.getRestartPendingIntent(): PendingIntent {
     val intent = packageManager.getLaunchIntentForPackage(packageName)
     val componentName = intent?.component
     val mainIntent = Intent.makeRestartActivityTask(componentName)
