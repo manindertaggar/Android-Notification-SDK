@@ -1,6 +1,6 @@
 ### [WORK IN PROGRESS]
 
-## Automatically Render the Notifications on Android from the backend
+Automatically Render the Notifications on Android from the backend
 
 # Auto Notifications SDK for Android
 
@@ -21,6 +21,18 @@ TOML (for Gradle version catalogs):
 ```toml
 [dependencies]
 android-notifications-sdk = { group = "co.taggar", name = "notifications", version = "1.0.0" }
+```
+
+
+Add it to your root build.gradle at the end of repositories:
+```
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+  }
+}
 ```
 
 ### 2. Backend Implementation
