@@ -1,6 +1,5 @@
-### [WORK IN PROGRESS]
 
-Automatically Render the Notifications on Android from the backend
+[![Release](https://jitpack.io/v/co.taggar/android-notifications.svg)](https://jitpack.io/#co.taggar/android-notifications)
 
 # Auto Notifications SDK for Android
 
@@ -9,18 +8,19 @@ Automatically Render the Notifications on Android from the backend
 
 ## Getting Started
 
-
 ### 1. Android Implementation:
 Add the SDK to your project by including the following in your `build.gradle`:
 
 ```gradle
-implementation 'co.taggar:notifications:1.0.0'
+dependencies {
+  implementation 'co.taggar:android-notifications:1.0.2'
+}
 ```
 
 TOML (for Gradle version catalogs):
 ```toml
 [dependencies]
-android-notifications-sdk = { group = "co.taggar", name = "notifications", version = "1.0.0" }
+android-notifications-sdk = { group = "co.taggar", name = "android-notifications", version = "1.0.2" }
 ```
 
 
@@ -35,12 +35,15 @@ dependencyResolutionManagement {
 }
 ```
 
+Please make sure to request the notification permissions `POST_NOTIFICATIONS` as per your needs.
+
 ### 2. Backend Implementation
 
 Please follow Firebase's guidelines for delivering the notifications, e.g., using Admin SDK or making an API call.
 https://firebase.google.com/docs/cloud-messaging/server
 
 Please make sure for the payload, you do not send the notification object, please send all the required fields in the data object.
+
 As per the official documentation, all of the subfields sent in the data must be stringified as the data object is only available as `Map<String, String>`
 
 ```json
@@ -55,11 +58,11 @@ As per the official documentation, all of the subfields sent in the data must be
 ```
 
 #### Note: 
-The SDK will only process notifications with `type` = `ANDP` and ignore any other type of notification. The other notifications can be accessed by extending a Service to the `AutoNotificationService` and can have custom implementations just like FirebaseNotificationService.
+The SDK will only process notifications with `type` = `ANDP` and ignore any other type of notification. The other notifications can be accessed by extending a Service to the `AutoNotificationService` and having custom implementations like FirebaseNotificationService.
 
 
 ### What to send from Backend:
-`AutoNotificationService` can render almost all types of Android notifications out of the box. Please modify one of the following template objects to fit your needs.
+`AutoNotificationService` can render almost all Android notifications out of the box. Please modify one of the following template objects to fit your needs.
 
 
 #### Supported Templates
@@ -78,7 +81,11 @@ The SDK will only process notifications with `type` = `ANDP` and ignore any othe
 ## Features:
 - Support all default notification styles: big text, big picture, inbox, and more.
 - Server-configurable settings: title, body, images, small icon, deep links, and more.
-- [Upcoming] Remove notifications remotely
+
+### Upcoming Features:
+- [Upcoming] Remove already sent notifications remotely from user's devices
+- [Upcoming] Get callbacks notification clicks, and button clicks directly in the Kotlin listeners, rather than deep links
+- [Upcoming] Notification Analytic callbacks e.g. Notification Received, Shown, Opened, Dismissed etc
 
 ## Why Use This SDK?
 Android developers must manually write code for notification rendering and establish custom backend contracts. **Android Notifications SDK** provides a standardized approach that simplifies this process, helping developers save time, minimize errors, and streamline notification handling.
