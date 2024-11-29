@@ -37,6 +37,18 @@ dependencyResolutionManagement {
 }
 ```
 
+or if you are using Kotlin scripts (`.kts`) e.g. `settings.gradle.kts`
+```
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven ("https://jitpack.io" )
+    }
+}
+```
+
 Please request the notification permissions `POST_NOTIFICATIONS` as per your needs in newer Android versions.
 https://developer.android.com/develop/ui/views/notifications/notification-permission
 
